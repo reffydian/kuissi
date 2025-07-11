@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import '../../services/auth_service.dart';
-import '../auth/login_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import '../../services/auth_service.dart'; // Import service untuk logout
+import '../auth/login_screen.dart'; // Navigasi ke login setelah logout
+import 'package:firebase_auth/firebase_auth.dart'; // Ambil data user saat ini
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
+    final user = FirebaseAuth.instance.currentUser; // Ambil user login saat ini
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFF7A2F),
+      backgroundColor: const Color(0xFFFF7A2F), // Warna oranye khas Kuissi
       appBar: AppBar(
-        title: const Text('Profil'),
+        title: const Text('Profil'), // Judul AppBar
         backgroundColor: Colors.deepOrange,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24), // Padding keseluruhan
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,6 +31,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
+            // Card info akun (email dan UID)
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
@@ -42,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    user?.email ?? 'Tidak diketahui',
+                    user?.email ?? 'Tidak diketahui', // Tampilkan email user
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -50,7 +51,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'User ID: ${user?.uid ?? 'null'}',
+                    'User ID: ${user?.uid ?? 'null'}', // Tampilkan UID user
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                 ],
@@ -59,17 +60,18 @@ class ProfileScreen extends StatelessWidget {
 
             const SizedBox(height: 32),
 
+            // Tombol Logout
             SizedBox(
               width: double.infinity,
               height: 48,
               child: ElevatedButton.icon(
                 onPressed: () async {
-                  await AuthService.logout();
+                  await AuthService.logout(); // Logout dari Firebase
                   if (context.mounted) {
                     Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (_) => const LoginScreen()),
-                      (route) => false,
+                      MaterialPageRoute(builder: (_) => const LoginScreen()), // Arahkan ke login screen
+                      (route) => false, // Clear semua route sebelumnya
                     );
                   }
                 },
@@ -81,7 +83,7 @@ class ProfileScreen extends StatelessWidget {
                     side: const BorderSide(color: Colors.deepOrange),
                   ),
                 ),
-                icon: const Icon(Icons.logout),
+                icon: const Icon(Icons.logout), // Icon logout
                 label: const Text(
                   'Logout',
                   style: TextStyle(fontWeight: FontWeight.bold),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../models/category_model.dart';
-import '../../services/api_service.dart';
-import '../quiz/quiz_screen.dart';
-import '../../widgets/bottom_navbar.dart';
+import '../../models/category_model.dart'; // Model data kategori kuis
+import '../../services/api_service.dart'; // Service API
+import '../quiz/quiz_screen.dart'; // Navigasi ke halaman kuis
+import '../../widgets/bottom_navbar.dart'; // Komponen bottom navigation bar
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,16 +12,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<QuizCategory> _categories = [];
-  bool _loading = true;
-  int _selectedIndex = 0;
+  List<QuizCategory> _categories = []; // Daftar kategori kuis
+  bool _loading = true; // Status loading data
+  int _selectedIndex = 0; // Index navbar yang dipilih
 
   @override
   void initState() {
     super.initState();
-    loadCategories();
+    loadCategories(); // Ambil data kategori saat pertama kali halaman dibuka
   }
 
+  // Ambil kategori dari API
   Future<void> loadCategories() async {
     try {
       final categories = await ApiService.fetchCategories();
@@ -34,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // Navigasi ke halaman kuis berdasarkan kategori yang dipilih
   void _startQuiz(int categoryId) {
     Navigator.push(
       context,
@@ -43,11 +45,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // Handler saat ikon navbar ditekan
   void _onNavTap(int index) {
     setState(() {
       _selectedIndex = index;
     });
 
+    // Navigasi ke halaman yang sesuai
     switch (index) {
       case 0:
         break;
@@ -63,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFF7A2F),
+      backgroundColor: const Color(0xFFFF7A2F), // Background oranye
       body: Stack(
         children: [
           SafeArea(
@@ -72,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Header
+                  // Header atas (judul + ikon notifikasi)
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                     child: Row(
@@ -91,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
 
-                  // Banner
+                  // Banner ajakan mulai kuis
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Container(
@@ -115,6 +119,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
 
                   const SizedBox(height: 28),
+
+                  // Judul "Discover Quiz"
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
@@ -128,6 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
 
                   const SizedBox(height: 18),
+
+                  // List horizontal kategori kuis
                   SizedBox(
                     height: 190,
                     child: _loading
@@ -150,10 +158,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   child: Column(
                                     children: [
+                                      // Ikon kuis
                                       const Expanded(
                                         child: Icon(Icons.quiz, size: 60, color: Colors.deepOrange),
                                       ),
                                       const SizedBox(height: 12),
+                                      // Nama kategori
                                       Text(
                                         category.name,
                                         textAlign: TextAlign.center,
@@ -171,6 +181,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
 
                   const SizedBox(height: 32),
+
+                  // Judul "Top Kuisser"
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
@@ -184,6 +196,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
 
                   const SizedBox(height: 16),
+
+                  // Daftar user teratas
                   SizedBox(
                     height: 110,
                     child: ListView.separated(
@@ -217,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
-          // Floating Navbar
+          // Bottom navigation bar mengambang
           Positioned(
             left: 0,
             right: 0,

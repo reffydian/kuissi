@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../models/category_model.dart';
-import '../../services/api_service.dart';
-import '../quiz/quiz_screen.dart';
+import '../../models/category_model.dart'; // Model data kategori kuis
+import '../../services/api_service.dart'; // Service untuk ambil data dari API
+import '../quiz/quiz_screen.dart'; // Navigasi ke halaman quiz
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -11,15 +11,19 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
+  // List kategori kuis
   List<QuizCategory> _categories = [];
+
+  // Status loading data
   bool _loading = true;
 
   @override
   void initState() {
     super.initState();
-    loadCategories();
+    loadCategories(); // Panggil saat screen dibuka
   }
 
+  // Ambil data kategori dari API
   Future<void> loadCategories() async {
     try {
       final categories = await ApiService.fetchCategories();
@@ -32,6 +36,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     }
   }
 
+  // Navigasi ke halaman kuis berdasarkan kategori yang dipilih
   void _startQuiz(int categoryId) {
     Navigator.push(
       context,
@@ -44,22 +49,29 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // AppBar dengan judul
       appBar: AppBar(
         title: const Text('Pilih Kategori'),
         backgroundColor: Colors.deepOrange,
       ),
+
+      // Tampilkan loading saat data masih diambil
       body: _loading
           ? const Center(child: CircularProgressIndicator())
+
+          // Tampilkan daftar kategori dalam bentuk grid
           : GridView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: _categories.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: 2, // 2 kolom
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
               ),
               itemBuilder: (context, index) {
                 final cat = _categories[index];
+
+                // Tiap kategori jadi card bisa diklik
                 return GestureDetector(
                   onTap: () => _startQuiz(cat.id),
                   child: Container(

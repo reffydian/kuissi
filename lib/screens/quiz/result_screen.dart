@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../routes/app_routes.dart';
 
 class ResultScreen extends StatelessWidget {
-  final int score;
-  final int total;
+  final int score; // Skor yang diperoleh user
+  final int total; // Total soal yang dijawab
 
   const ResultScreen({
     super.key,
@@ -11,6 +11,7 @@ class ResultScreen extends StatelessWidget {
     required this.total,
   });
 
+  // Fungsi untuk menghasilkan pesan berdasarkan hasil
   String getResultMessage() {
     double ratio = score / total;
     if (ratio == 1.0) return 'Perfect! Kamu luar biasa 🎯';
@@ -28,8 +29,9 @@ class ResultScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center, // Tengah layar secara vertikal
               children: [
+                // Judul halaman hasil
                 const Text(
                   'Hasil Kuis',
                   style: TextStyle(
@@ -40,6 +42,7 @@ class ResultScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
 
+                // Menampilkan skor
                 Text(
                   '$score / $total',
                   style: const TextStyle(
@@ -50,6 +53,7 @@ class ResultScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
 
+                // Pesan motivasi sesuai skor
                 Text(
                   getResultMessage(),
                   textAlign: TextAlign.center,
@@ -60,6 +64,7 @@ class ResultScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 40),
 
+                // Tombol untuk ulangi kuis
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -77,6 +82,7 @@ class ResultScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
 
+                // Tombol kembali ke home
                 OutlinedButton.icon(
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Colors.white,

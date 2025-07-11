@@ -4,10 +4,15 @@ import 'firebase_options.dart';
 import 'routes/app_routes.dart';
 
 void main() async {
+  // Inisialisasi Flutter sebelum memanggil Firebase
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Inisialisasi Firebase dengan konfigurasi dari firebase_options.dart
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // Menjalankan aplikasi utama
   runApp(const KuissiApp());
 }
 
@@ -17,15 +22,18 @@ class KuissiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Kuissi',
-      debugShowCheckedModeBanner: false,
+      title: 'Kuissi', // Judul aplikasi
+
+      debugShowCheckedModeBanner: false, // Menghilangkan label debug
+
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFFF7A2F), // warna oranye khas desain
-        primarySwatch: Colors.deepOrange,
-        fontFamily: 'Arial',
+        primarySwatch: Colors.deepOrange, // Warna utama tema aplikasi
+        fontFamily: 'Roboto', // Font default
       ),
-      initialRoute: AppRoutes.login,
-      routes: AppRoutes.routes,
+
+      routes: AppRoutes.routes, // Rute navigasi yang tersedia
+
+      initialRoute: AppRoutes.login, // Halaman awal saat aplikasi dibuka
     );
   }
 }
