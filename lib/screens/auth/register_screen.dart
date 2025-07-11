@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
-import 'register_screen.dart';
+import '../auth/login_screen.dart';
 import '../home/home_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final emailCtrl = TextEditingController();
   final passCtrl = TextEditingController();
   bool loading = false;
 
-  void loginUser() async {
+  void registerUser() async {
     setState(() => loading = true);
     try {
-      final user = await AuthService.login(emailCtrl.text.trim(), passCtrl.text.trim());
+      final user = await AuthService.register(emailCtrl.text.trim(), passCtrl.text.trim());
       if (user != null && mounted) {
         Navigator.pushReplacement(
           context,
@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Gagal login: ${e.toString()}')),
+        SnackBar(content: Text('Gagal daftar: ${e.toString()}')),
       );
     }
     setState(() => loading = false);
@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFF7A2F), // warna oranye khas Kuissi
+      backgroundColor: const Color(0xFFFF7A2F),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -46,17 +46,17 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 32),
 
               const Text(
-                'Kuissi',
+                'Daftar',
                 style: TextStyle(
                   fontSize: 36,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w900,
                   color: Colors.white,
                 ),
               ),
 
               const SizedBox(height: 12),
               const Text(
-                'Masuk untuk mulai kuis seru!',
+                'Buat akunmu dan mulai kuis seru!',
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.white70,
@@ -77,7 +77,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: emailCtrl,
                       decoration: InputDecoration(
                         labelText: 'Email',
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                       ),
                       keyboardType: TextInputType.emailAddress,
                     ),
@@ -86,7 +88,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: passCtrl,
                       decoration: InputDecoration(
                         labelText: 'Password',
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                       ),
                       obscureText: true,
                     ),
@@ -95,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: loading ? null : loginUser,
+                        onPressed: loading ? null : registerUser,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blueAccent,
                           shape: RoundedRectangleBorder(
@@ -105,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: loading
                             ? const CircularProgressIndicator(color: Colors.white)
                             : const Text(
-                                'Login',
+                                'Daftar',
                                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                               ),
                       ),
@@ -113,13 +117,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 12),
                     TextButton(
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (_) => const RegisterScreen()),
+                          MaterialPageRoute(builder: (_) => const LoginScreen()),
                         );
                       },
                       child: const Text(
-                        'Belum punya akun? Daftar',
+                        'Sudah punya akun? Login',
                         style: TextStyle(color: Colors.deepOrange),
                       ),
                     )

@@ -1,0 +1,1 @@
+{"flutter":{"platforms":{"android":{"default":{"projectId":"kuissi-app","appId":"1:1099123604038:android:13b34ef466e81627da2847","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"kuissi-app","configurations":{"android":"1:1099123604038:android:13b34ef466e81627da2847","web":"1:1099123604038:web:a2b0569970cb9aa1da2847"}}}}}}

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1099123604038",
+    "project_id": "kuissi-app",
+    "storage_bucket": "kuissi-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1099123604038:android:13b34ef466e81627da2847",
+        "android_client_info": {
+          "package_name": "com.example.kuissi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsTr5v0l1de22F7GUX2LmCCNdRC19TCtw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
